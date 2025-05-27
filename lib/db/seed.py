@@ -1,34 +1,26 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from lib.db.models import Base, Author, Book
-import os
-import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
-# Create a database engine
+# Create the database engine
 engine = create_engine('sqlite:///lib/db/library.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
+# Drop and recreate all tables
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
 
-# Optional: Clear old data (for clean re-seeding)
-session.query(Book).delete()
-session.query(Author).delete()
+# Seed Authors
+author1 = Author.create(session, name="Chinua Achebe")
+author2 = Author.create(session, name="Ngũgĩ wa Thiong'o")
+author3 = Author.create(session, name="Margaret Ogola")
 
+# Seed Books
+Book.create(session, title="Things Fall Apart", author_id=author1.id)
+Book.create(session, title="No Longer at Ease", author_id=author1.id)
+Book.create(session, title="The River Between", author_id=author2.id)
+Book.create(session, title="Weep Not, Child", author_id=author2.id)
+Book.create(session, title="The River and the Source", author_id=author3.id)
 
-# Create authors
-author1 = Author(name="Ngũgĩ wa Thiong'o", country="Kenya")
-author2 = Author(name="Chinua Achebe", country="Nigeria")
-author3 = Author(name="Margaret Ogola", country="Kenya")
-
-# Create books
-book1 = Book(title="Petals of Blood", genre="Fiction", author=author1)
-book2 = Book(title="Weep Not, Child", genre="Fiction", author=author1)
-book3 = Book(title="Things Fall Apart", genre="Historical", author=author2)
-book4 = Book(title="The River and the Source", genre="Drama", author=author3)
-
-# Add to session
-session.add_all([author1, author2, author3, book1, book2, book3, book4])
-session.commit()
-
-print("🌱 Database seeded!")
+print("Database seeded successfully!")
