@@ -2,15 +2,7 @@
     
     
     
-    id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
-    author_id = Column(Integer, ForeignKey('authors.id'))
-
-    author = relationship('Author', back_populates='books')
-
-    def __repr__(self):
-        return f"<Book(id={self.id}, title='{self.title}', author_id={self.author_id})>"
-
+    
     @validates('title')
     def validate_title(self, key, value):
         if not value or len(value.strip()) == 0:
