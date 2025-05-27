@@ -6,3 +6,8 @@ from lib.db.models import Base, Author, Book
 engine = create_engine('sqlite:///lib/db/library.db')
 Session = sessionmaker(bind=engine)
 session = Session()
+
+
+# Optional: Clear old data (for clean re-seeding)
+session.query(Book).delete()
+session.query(Author).delete()
