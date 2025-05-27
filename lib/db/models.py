@@ -1,4 +1,8 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, relationship
+from sqlalchemy.orm import declarative_base
+from sqlalchemy import Column, Integer, String, ForeignKey
+
+Base = declarative_base()
 
 class Author(Base):
     __tablename__ = 'authors'
