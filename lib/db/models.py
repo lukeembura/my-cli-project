@@ -8,11 +8,12 @@ class Author(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
+    country = Column(String)
 
     books = relationship("Book", back_populates="author", cascade="all, delete-orphan")
 
     def __repr__(self):
-        return f"<Author(id={self.id}, name='{self.name}')>"
+        return f"<Author(id={self.id}, name='{self.name}', country='{self.country}')>"
     
 
     @validates('name')
