@@ -25,3 +25,45 @@ def main_menu():
             break
         else:
             print("Invalid choice, try again.")
+
+def author_menu():
+    while True:
+        print("\nAuthor Menu")
+        print("1. List all authors")
+        print("2. Create author")
+        print("3. Delete author")
+        print("4. Find author by ID")
+        print("5. Back to main menu")
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            authors = Author.get_all(session)
+            for a in authors:
+                print(f"{a.id}: {a.name}")
+        elif choice == '2':
+            name = input("Enter author name: ")
+            author = Author.create(session, name)
+            print(f"Created author with id {author.id}")
+        elif choice == '3':
+            author_id = int(input("Enter author ID to delete: "))
+            author = Author.find_by_id(session, author_id)
+            if author:
+                author.delete(session)
+                print("Author deleted.")
+            else:
+                print("Author not found.")
+        elif choice == '4':
+            author_id = int(input("Enter author ID to find: "))
+            author = Author.find_by_id(session, author_id)
+            if author:
+                print(f"Author: {author.id} - {author.name}")
+                print("Books:")
+                for book in author.books:
+                    print(f" - {book.title}")
+            else:
+                print("Author not found.")
+        elif choice == '5':
+            break
+        else:
+            print("Invalid choice, try again.")
+
