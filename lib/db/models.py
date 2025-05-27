@@ -50,7 +50,14 @@ class Author(Base):
 
     author = relationship("Author", back_populates="books")
 
-    
+    def __repr__(self):
+        return f"<Book(id={self.id}, title='{self.title}', author_id={self.author_id})>"
+
+    @validates('title')
+    def validate_title(self, key, title):
+        if not title or title.strip() == "":
+            raise ValueError("Book title cannot be empty.")
+        return title
     
    
       
