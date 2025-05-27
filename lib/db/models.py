@@ -75,5 +75,8 @@ class Author(Base):
     def find_by_id(cls, session, id):
         return session.query(cls).get(id)
     
-   
+
+    def delete(self, session):
+        session.delete(self)
+        session.commit()
       
