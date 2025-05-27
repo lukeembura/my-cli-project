@@ -39,7 +39,17 @@ class Author(Base):
     def delete(self, session):
         session.delete(self)
         session.commit()
-    
+
+
+    class Book(Base):
+        __tablename__ = 'books'
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    author_id = Column(Integer, ForeignKey('authors.id'))
+
+    author = relationship("Author", back_populates="books")
+
     
     
    
