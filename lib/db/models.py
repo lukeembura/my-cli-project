@@ -32,6 +32,13 @@ class Author(Base):
     def get_all(cls, session):
         return session.query(cls).all()
 
+    @classmethod
+    def find_by_id(cls, session, id):
+        return session.query(cls).get(id)
+
+    def delete(self, session):
+        session.delete(self)
+        session.commit()
     
     
     
