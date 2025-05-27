@@ -1,16 +1,6 @@
 
     
-    @classmethod
-    def create(cls, session, name):
-        author = cls(name=name)
-        session.add(author)
-        session.commit()
-        return author
-
-    @classmethod
-    def get_all(cls, session):
-        return session.query(cls).all()
-
+    
     @classmethod
     def find_by_id(cls, session, id):
         return session.query(cls).get(id)
