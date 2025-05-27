@@ -1,13 +1,5 @@
 
-    def __repr__(self):
-        return f"<Author(id={self.id}, name='{self.name}')>"
-
-    @validates('name')
-    def validate_name(self, key, value):
-        if not value or len(value.strip()) < 2:
-            raise ValueError("Author name must be at least 2 characters long.")
-        return value
-
+    
     @classmethod
     def create(cls, session, name):
         author = cls(name=name)
