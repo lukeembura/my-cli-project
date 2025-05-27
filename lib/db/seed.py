@@ -23,3 +23,9 @@ book1 = Book(title="Petals of Blood", genre="Fiction", author=author1)
 book2 = Book(title="Weep Not, Child", genre="Fiction", author=author1)
 book3 = Book(title="Things Fall Apart", genre="Historical", author=author2)
 book4 = Book(title="The River and the Source", genre="Drama", author=author3)
+
+# Add to session
+session.add_all([author1, author2, author3, book1, book2, book3, book4])
+session.commit()
+
+print("🌱 Database seeded!")
