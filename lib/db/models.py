@@ -1,31 +1,56 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship, declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import Session
 
 class Author(Base):
     __tablename__ = 'authors'
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    nationality = Column(String)
+    books = relationship("Book", back_populates="author", cascade="all, delete")
 
-    # Relationship to books
-    books = relationship('Book', back_populates='author', cascade="all, delete-orphan")
+    # ORM methods
+    @classmethod
+    def create(cls, session: Session, name: str):
+        author = cls(name=name)
+        session.add(author)
+        session.commit()
+        return author
 
-    def __repr__(self):
-        return f"<Author(id={self.id}, name='{self.name}', nationality='{self.nationality}')>"
+    @classmethod
+    def get_all(cls, session: Session):
+        return session.query(cls).all()
+
+    @classmethod
+    def find_by_id(cls, session: Session, author_id: int):
+        return session.query(cls).filter_by(id=author_id).first()
+
+    def delete(self, session: Session):
+        session.delete(self)
+        session.commit()
 
 class Book(Base):
     __tablename__ = 'books'
 
-    id = Column(Integer, primary_key=True)  # Primary key is required!
+    id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    genre = Column(String)
     author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)
+    author = relationship("Author", back_populates="books")
 
-    # Relationship to author
-    author = relationship('Author', back_populates='books')
+    # ORM methods
+    @classmethod
+    def create(cls, session: Session, title: str, author_id: int):
+        book = cls(title=title, author_id=author_id)
+        session.add(book)
+        session.commit()
+        return book
 
-    def __repr__(self):
-        return f"<Book(id={self.id}, title='{self.title}', genre='{self.genre}', author_id={self.author_id})>"
+    @classmethod
+    def get_all(cls, session: Session):
+        return session.query(cls).all()
+
+    @classmethod
+    def find_by_id(cls, session: Session, book_id: int):
+        return session.query(cls).filter_by(id=book_id).first()
+
+    def delete(self, session: Session):
+        session.delete(self)
+        session.commit()
