@@ -95,5 +95,5 @@ Enter your choice:
 
 ## Author
 
-Created by Luke Kiprop as a Phase 3 Project.
+Created by Luke Kiprop as a Phase 3 Project
 
