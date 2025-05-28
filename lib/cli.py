@@ -1,4 +1,4 @@
-from lib.db.models import Author, Book
+from .db.models import Author, Book
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
