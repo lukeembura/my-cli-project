@@ -1,0 +1,15 @@
+README.md
+setup.py
+lib/__init__.py
+lib/cli.py
+lib/debug.py
+lib/helpers.py
+lib/db/__init__.py
+lib/db/models.py
+lib/db/seed.py
+my_cli_project.egg-info/PKG-INFO
+my_cli_project.egg-info/SOURCES.txt
+my_cli_project.egg-info/dependency_links.txt
+my_cli_project.egg-info/entry_points.txt
+my_cli_project.egg-info/requires.txt
+my_cli_project.egg-info/top_level.txt
