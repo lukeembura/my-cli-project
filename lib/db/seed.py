@@ -15,7 +15,6 @@ Base.metadata.create_all(engine)
 author1 = Author.create(session, name="Chinua Achebe")
 author2 = Author.create(session, name="Ngũgĩ wa Thiong'o")
 author3 = Author.create(session, name="Margaret Ogola")
-author4 = Author.create(session, name="Wole Soyinka")
 
 # Seed Books
 Book.create(session, title="Things Fall Apart", author_id=author1.id)
