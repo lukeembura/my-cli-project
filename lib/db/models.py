@@ -11,6 +11,9 @@ class Author(Base):
     name = Column(String, nullable=False)
     books = relationship("Book", back_populates="author", cascade="all, delete")
 
+    def __repr__(self):
+        return f"<Author(id={self.id}, name='{self.name}')>"
+
     # ORM methods
     @classmethod
     def create(cls, session: Session, name: str):
@@ -31,6 +34,7 @@ class Author(Base):
         session.delete(self)
         session.commit()
 
+
 class Book(Base):
     __tablename__ = 'books'
 
@@ -38,6 +42,9 @@ class Book(Base):
     title = Column(String, nullable=False)
     author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)
     author = relationship("Author", back_populates="books")
+
+    def __repr__(self):
+        return f"<Book(id={self.id}, title='{self.title}', author_id={self.author_id})>"
 
     # ORM methods
     @classmethod
